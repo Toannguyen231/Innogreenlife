@@ -91,3 +91,114 @@ nav a:hover::after { width: 100%; left: 0; }
   transform: translateY(-2px);
   box-shadow: 0 8px 24px var(--primary-glow);
 }
+
+.hdr-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.auth-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hdr-register {
+  background: transparent;
+  border: 1px solid var(--secondary);
+  color: var(--secondary);
+  box-shadow: none;
+}
+
+.hdr-register:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.hdr-cart {
+  position: relative;
+  color: var(--secondary);
+  font-size: 1.35rem;
+  transition: transform 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.hdr-cart:hover {
+  transform: scale(1.1);
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background: var(--primary);
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 2px solid #fffdf5; /* match header background */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.hdr-login {
+  padding: 0.65rem 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hdr-login i {
+  font-size: 1rem;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+  box-shadow: 0 6px 18px var(--primary-glow);
+  border: 2px solid #fffdf5;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--secondary);
+}
+
+.btn-logout {
+  background: transparent;
+  border: 1px solid var(--secondary);
+  color: var(--secondary);
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-logout:hover {
+  background: var(--secondary);
+  color: #fff;
+}

@@ -15,16 +15,16 @@ function addRipple(e) {
 
 /**
  * ProductCard component
- * @param {{ id: number, title: string, description: string, image?: string, link?: string }} props
+ * @param {{ title: string, description: string, image?: string, badge?: string, link?: string }} props
  */
-export default function ProductCard({ title, description, image, link = '/product' }) {
+export default function ProductCard({ title, description, image, badge, link = '/product' }) {
   const src = image || productImg
 
   return (
     <div className="product-card">
       <div className="product-card__image">
         <img src={src} alt={title} />
-        <span className="product-badge">Best Seller</span>
+        {badge ? <span className="product-badge">{badge}</span> : null}
       </div>
       <div className="product-card__body">
         <h5 className="product-card__title">{title}</h5>

@@ -5,6 +5,21 @@
   min-height: 100vh;
 }
 
+.pd-status {
+  text-align: center;
+  color: var(--text-light);
+  padding: 2rem 1rem;
+}
+
+.pd-error {
+  color: #c62828;
+}
+
+.pd-error a {
+  color: var(--secondary);
+  font-weight: 600;
+}
+
 .prod-wrap {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -136,12 +151,68 @@
   font-weight: 700;
 }
 
+.quantity-row {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.qty-label {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 1.05rem;
+}
+
+.qty-controls {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.qty-btn {
+  background: transparent;
+  color: var(--text);
+  border: none;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, color 0.3s;
+}
+
+.qty-btn:hover {
+  background: var(--primary-glow);
+  color: var(--secondary);
+}
+
+.qty-val {
+  width: 40px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
 .btn-buy {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
   margin-bottom: 1.2rem;
   text-decoration: none;
+  font-size: 1.05rem;
+  padding: 0.8rem 1.8rem;
+  border: none;
+  cursor: pointer;
 }
 
 .back-link {

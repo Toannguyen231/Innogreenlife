@@ -1,9 +1,11 @@
-import { useRef, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useRef, useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { useFadeIn } from '../hooks/useFadeIn'
+import { useCart } from '../hooks/useCart'
+import { useToast } from '../context/ToastContext'
 import productImg from '../assets/img/product.png'
+import { API_ENDPOINTS } from '../config/api'
 import './ProductDetail.css'
 
 function addRipple(e) {
@@ -12,27 +14,79 @@ function addRipple(e) {
   const s = document.createElement('span')
   s.className = 'rpl'
   s.style.left = (e.clientX - r.left) + 'px'
-  s.style.top  = (e.clientY - r.top)  + 'px'
+  s.style.top = (e.clientY - r.top) + 'px'
   btn.appendChild(s)
   setTimeout(() => s.remove(), 700)
 }
 
+const DEFAULT_FEATURES = [
+  'No added sugar',
+  'No preservatives',
+  'Rich in Vitamin C',
+  'Vegan friendly',
+]
+
 export default function ProductDetail() {
-  const imgRef  = useFadeIn()
-  const infoRef = useFadeIn()
+  const { id } = useParams()
+  const imgRef = useRef(null)
+  const infoRef = useRef(null)
+  const { addToCart } = useCart()
+  const { showToast } = useToast()
+  const [quantity, setQuantity] = useState(1)
+  const [product, setProduct] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  console.log('ProductDetail component rendered with id:', id)
+
+  useEffect(() => {
+    let cancelled = false
+
+    async function load() {
+      if (!id) {
+        setError('Thiếu mã sản phẩm')
+        setLoading(false)
+        return
+      }
+      console.log('Loading product with id:', id)
+      setLoading(true)
+      setError('')
+      try {
+        const res = await fetch(API_ENDPOINTS.productById(id))
+        console.log('API response status:', res.status)
+        const data = await res.json().catch(() => ({}))
+        console.log('API response data:', data)
+        if (!res.ok) {
+          throw new Error(data.message || 'Không tải được sản phẩm')
+        }
+        if (!cancelled) setProduct(data)
+        console.log('Product set successfully:', data)
+      } catch (e) {
+        console.log('Error loading product:', e)
+        if (!cancelled) setError(e.message || 'Lỗi mạng')
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    }
+
+    load()
+    return () => {
+      cancelled = true
+    }
+  }, [id])
 
   // 3D tilt effect on product image
   useEffect(() => {
     const el = imgRef.current
-    if (!el) return
+    if (!el || !product) return
     const img = el.querySelector('img')
     if (!img) return
     img.style.transition = 'transform .15s ease'
 
     const onMove = (e) => {
       const r = el.getBoundingClientRect()
-      const x = (e.clientX - r.left) / r.width  - 0.5
-      const y = (e.clientY - r.top)  / r.height - 0.5
+      const x = (e.clientX - r.left) / r.width - 0.5
+      const y = (e.clientY - r.top) / r.height - 0.5
       img.style.transform = `scale(1.04) rotateY(${x * 9}deg) rotateX(${-y * 9}deg)`
     }
     const onLeave = () => { img.style.transform = '' }
@@ -43,63 +97,99 @@ export default function ProductDetail() {
       el.removeEventListener('mousemove', onMove)
       el.removeEventListener('mouseleave', onLeave)
     }
-  }, [imgRef])
+  }, [imgRef, product])
 
-  const features = [
-    'No added sugar',
-    'No preservatives',
-    'Rich in Vitamin C',
-    'Vegan friendly',
-  ]
+  const displayImage = product?.image || productImg
+  const features = product?.features?.length ? product.features : DEFAULT_FEATURES
+  const safePrice = Number(product?.price)
+  const safeOldPrice = Number(product?.oldPrice)
+  const hasValidPrice = Number.isFinite(safePrice)
+  const hasValidOldPrice = Number.isFinite(safeOldPrice)
+  const discountPct =
+    hasValidOldPrice && hasValidPrice && safeOldPrice > safePrice
+      ? Math.round((1 - safePrice / safeOldPrice) * 100)
+      : null
 
   return (
     <>
       <Header />
       <main className="pd-main">
         <div className="wrap">
-          <div className="prod-wrap">
-            {/* Product Image */}
-            <div className="prod-img fi" ref={imgRef}>
-              <img src={productImg} alt="Mango Snack Pack" />
-              <span className="badge">Best Seller</span>
-            </div>
-
-            {/* Product Info */}
-            <div className="fi d1" ref={infoRef}>
-              <span className="tag">Our Product</span>
-              <h1 className="stitle">Premium Mango Slices</h1>
-              <p className="prod-desc">
-                Carefully selected and dried at the perfect temperature to preserve natural
-                sweetness and nutrients. Each bite delivers the authentic mango flavor you love.
-              </p>
-
-              <ul className="features">
-                {features.map((f) => (
-                  <li key={f}>
-                    <i className="fa-solid fa-check"></i> {f}
-                  </li>
-                ))}
-              </ul>
-
-              <div className="price-row">
-                <span className="price-now">$14.99</span>
-                <span className="price-old">$19.99</span>
-                <span className="price-pct">-25%</span>
+          {loading && <p className="pd-status">Đang tải…</p>}
+          {error && (
+            <p className="pd-status pd-error">
+              {error}{' '}
+              <Link to="/">Về trang chủ</Link>
+            </p>
+          )}
+          {!loading && !error && product && (
+            <div className="prod-wrap">
+              <div className="prod-img fi on" ref={imgRef}>
+                <img src={displayImage} alt={product.title} />
+                {product.badge ? <span className="badge">{product.badge}</span> : null}
               </div>
 
-              <Link
-                to="/#contact"
-                className="btn-buy btn-primary"
-                onClick={addRipple}
-              >
-                Buy Now <i className="fa-solid fa-bag-shopping"></i>
-              </Link>
+              <div className="fi d1 on" ref={infoRef}>
+                <span className="tag">Our Product</span>
+                <h1 className="stitle">{product.title}</h1>
+                <p className="prod-desc">{product.description}</p>
 
-              <Link to="/" className="back-link">
-                <i className="fa-solid fa-arrow-left"></i> Back to Home
-              </Link>
+                <ul className="features">
+                  {features.map((f) => (
+                    <li key={f}>
+                      <i className="fa-solid fa-check"></i> {f}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="price-row">
+                  <span className="price-now">${hasValidPrice ? safePrice.toFixed(2) : '0.00'}</span>
+                  {hasValidOldPrice ? (
+                    <>
+                      <span className="price-old">${safeOldPrice.toFixed(2)}</span>
+                      {discountPct != null ? (
+                        <span className="price-pct">-{discountPct}%</span>
+                      ) : null}
+                    </>
+                  ) : null}
+                </div>
+
+                <div className="quantity-row">
+                  <span className="qty-label">Quantity:</span>
+                  <div className="qty-controls">
+                    <button type="button" onClick={() => setQuantity(q => Math.max(1, q - 1))} className="qty-btn">-</button>
+                    <span className="qty-val">{quantity}</span>
+                    <button type="button" onClick={() => setQuantity(q => q + 1)} className="qty-btn">+</button>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  className="btn-buy btn-primary"
+                  disabled={product.inStock === false}
+                  onClick={(e) => {
+                    addRipple(e)
+                    addToCart({
+                      id: product.idClient || product._id,
+                      title: product.title || 'Product',
+                      price: hasValidPrice ? safePrice : 0,
+                      quantity,
+                      image: typeof product.image === 'string' ? product.image : productImg
+                    })
+                    showToast(`Added ${quantity} item(s) to cart!`)
+                  }}
+                >
+                  {product.inStock === false ? 'Out of stock' : (
+                    <>Add to Cart <i className="fa-solid fa-cart-shopping"></i></>
+                  )}
+                </button>
+
+                <Link to="/" className="back-link">
+                  <i className="fa-solid fa-arrow-left"></i> Back to Home
+                </Link>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </main>
       <Footer />

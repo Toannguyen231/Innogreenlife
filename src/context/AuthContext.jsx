@@ -85,6 +85,7 @@ export function AuthProvider({ children }) {
     setToken(null)
     localStorage.removeItem('mangorush_user')
     localStorage.removeItem('mangorush_token')
+    localStorage.removeItem('mangorush_cart')
   }
 
   return (

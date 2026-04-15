@@ -64,6 +64,16 @@ export default function Cart() {
       }
 
       clearCart()
+      if (data.paymentInfo) {
+        navigate('/payment', {
+          state: {
+            paymentInfo: data.paymentInfo,
+            orderId: data.order?._id || null
+          }
+        })
+        return
+      }
+
       showToast('Đặt hàng thành công! Cảm ơn bạn.')
       navigate('/')
     } catch (e) {

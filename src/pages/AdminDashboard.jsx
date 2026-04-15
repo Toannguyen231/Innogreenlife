@@ -41,6 +41,7 @@ const AdminDashboard = () => {
         badge: '',
         features: '',
         image: '',
+        quantity: 0,
         inStock: true,
         category: ''
     })
@@ -293,6 +294,7 @@ const AdminDashboard = () => {
             badge: '',
             features: '',
             image: '',
+            quantity: 0,
             inStock: true,
             category: ''
         })
@@ -311,6 +313,7 @@ const AdminDashboard = () => {
             badge: product.badge || '',
             features: Array.isArray(product.features) ? product.features.join(', ') : '',
             image: product.image || '',
+            quantity: typeof product.quantity === 'number' ? product.quantity : 0,
             inStock: product.inStock !== undefined ? product.inStock : true,
             category: product.category || ''
         })
@@ -323,7 +326,7 @@ const AdminDashboard = () => {
         try {
             const token = localStorage.getItem('mangorush_token')
             const method = isEditingProduct ? 'PUT' : 'POST'
-            const endpoint = isEditingProduct 
+            const endpoint = isEditingProduct
                 ? `${API_ENDPOINTS.adminProducts}/${editingProductId}`
                 : API_ENDPOINTS.adminProducts
 
@@ -553,6 +556,35 @@ const AdminDashboard = () => {
     const unreadContacts = contacts.filter(c => !c.isRead).length
     const pendingOrders = orders.filter(o => o.status === 'Pending').length
 
+    const revenueOrders = orders.filter(o => o.status !== 'Cancelled')
+    const totalRevenue = revenueOrders.reduce((sum, order) => sum + (Number(order.totalAmount) || 0), 0)
+    const totalSoldItems = revenueOrders.reduce((sum, order) => sum + (order.items?.reduce((itemSum, item) => itemSum + (Number(item.quantity) || 0), 0) || 0), 0)
+
+    const productSalesMap = revenueOrders.reduce((acc, order) => {
+        (order.items || []).forEach((item) => {
+            const productKey = item.idClient || item.title || 'unknown'
+            const title = item.title || 'Unknown product'
+            const quantity = Number(item.quantity) || 0
+            const revenue = (Number(item.price) || 0) * quantity
+
+            if (!acc[productKey]) {
+                acc[productKey] = {
+                    idClient: item.idClient,
+                    title,
+                    quantity: 0,
+                    revenue: 0
+                }
+            }
+            acc[productKey].quantity += quantity
+            acc[productKey].revenue += revenue
+        })
+        return acc
+    }, {})
+
+    const bestSellingProducts = Object.values(productSalesMap)
+        .sort((a, b) => b.quantity - a.quantity || b.revenue - a.revenue)
+        .slice(0, 5)
+
     if (user?.role !== 'admin') {
         return (
             <div className="admin-access-denied">
@@ -727,50 +759,79 @@ const AdminDashboard = () => {
                     )}
 
                     {activeTab === 'dashboard' && (
-                        <div className="dashboard-grid">
-                            <div className="stat-card">
-                                <div className="stat-icon">📦</div>
-                                <div className="stat-info">
-                                    <h3>{products.length}</h3>
-                                    <p>Tổng sản phẩm</p>
+                        <>
+                            <div className="dashboard-grid">
+                                <div className="stat-card">
+                                    <div className="stat-icon">📦</div>
+                                    <div className="stat-info">
+                                        <h3>{products.length}</h3>
+                                        <p>Tổng sản phẩm</p>
+                                    </div>
+                                </div>
+                                <div className="stat-card">
+                                    <div className="stat-icon">🛒</div>
+                                    <div className="stat-info">
+                                        <h3>{orders.length}</h3>
+                                        <p>Tổng đơn hàng</p>
+                                    </div>
+                                </div>
+                                <div className="stat-card">
+                                    <div className="stat-icon">👥</div>
+                                    <div className="stat-info">
+                                        <h3>{users.length}</h3>
+                                        <p>Tổng người dùng</p>
+                                    </div>
+                                </div>
+                                <div className="stat-card">
+                                    <div className="stat-icon">✉️</div>
+                                    <div className="stat-info">
+                                        <h3>{contacts.length}</h3>
+                                        <p>Tin nhắn liên hệ</p>
+                                    </div>
+                                </div>
+                                <div className="stat-card pending">
+                                    <div className="stat-icon">⏳</div>
+                                    <div className="stat-info">
+                                        <h3>{pendingOrders}</h3>
+                                        <p>Đơn chờ xử lý</p>
+                                    </div>
+                                </div>
+                                <div className="stat-card unread">
+                                    <div className="stat-icon">📩</div>
+                                    <div className="stat-info">
+                                        <h3>{unreadContacts}</h3>
+                                        <p>Tin chưa đọc</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="stat-card">
-                                <div className="stat-icon">🛒</div>
-                                <div className="stat-info">
-                                    <h3>{orders.length}</h3>
-                                    <p>Tổng đơn hàng</p>
+
+                            <div className="dashboard-analytics">
+                                <div className="analytics-card revenue-card">
+                                    <div className="analytics-title">Tổng doanh thu</div>
+                                    <div className="analytics-value">{totalRevenue.toLocaleString('vi-VN')} VNĐ</div>
+                                    <div className="analytics-subtitle">Không tính đơn hủy</div>
+                                </div>
+                                <div className="analytics-card sold-card">
+                                    <div className="analytics-title">Số lượng đã bán</div>
+                                    <div className="analytics-value">{totalSoldItems}</div>
+                                    <div className="analytics-subtitle">Sản phẩm bán ra</div>
+                                </div>
+                                <div className="analytics-card top-products-card">
+                                    <div className="analytics-title">Top sản phẩm ưa chuộng</div>
+                                    <ol className="top-products-list">
+                                        {bestSellingProducts.length === 0 ? (
+                                            <li>Chưa có dữ liệu</li>
+                                        ) : (
+                                            bestSellingProducts.map((product) => (
+                                                <li key={product.idClient || product.title}>
+                                                    <strong>{product.title}</strong> — {product.quantity} bán ra
+                                                </li>
+                                            ))
+                                        )}
+                                    </ol>
                                 </div>
                             </div>
-                            <div className="stat-card">
-                                <div className="stat-icon">👥</div>
-                                <div className="stat-info">
-                                    <h3>{users.length}</h3>
-                                    <p>Tổng người dùng</p>
-                                </div>
-                            </div>
-                            <div className="stat-card">
-                                <div className="stat-icon">✉️</div>
-                                <div className="stat-info">
-                                    <h3>{contacts.length}</h3>
-                                    <p>Tin nhắn liên hệ</p>
-                                </div>
-                            </div>
-                            <div className="stat-card pending">
-                                <div className="stat-icon">⏳</div>
-                                <div className="stat-info">
-                                    <h3>{pendingOrders}</h3>
-                                    <p>Đơn chờ xử lý</p>
-                                </div>
-                            </div>
-                            <div className="stat-card unread">
-                                <div className="stat-icon">📩</div>
-                                <div className="stat-info">
-                                    <h3>{unreadContacts}</h3>
-                                    <p>Tin chưa đọc</p>
-                                </div>
-                            </div>
-                        </div>
+                        </>
                     )}
 
                     {activeTab === 'products' && (
@@ -793,7 +854,8 @@ const AdminDashboard = () => {
                                             <th>STT</th>
                                             <th>Tên sản phẩm</th>
                                             <th>Giá</th>
-                                            <th>Tồn kho</th>
+                                            <th>Số lượng</th>
+                                            <th>Trạng thái</th>
                                             <th>Danh mục</th>
                                             <th>Thao tác</th>
                                         </tr>
@@ -811,6 +873,7 @@ const AdminDashboard = () => {
                                                 <td>{(currentPage - 1) * 20 + index + 1}</td>
                                                 <td className="product-name">{product.title}</td>
                                                 <td>{product.price?.toLocaleString()} VNĐ</td>
+                                                <td>{typeof product.quantity === 'number' ? product.quantity : '-'}</td>
                                                 <td>
                                                     <span className={`stock-badge ${product.inStock ? 'in-stock' : 'out-of-stock'}`}>
                                                         {product.inStock ? 'Còn hàng' : 'Hết hàng'}
@@ -823,7 +886,7 @@ const AdminDashboard = () => {
                                                             onClick={() => handleOpenEditModal(product)}
                                                             className="edit-btn"
                                                         >
-                                                              ✏️ Sửa
+                                                            ✏️ Sửa
                                                         </button>
                                                         <button
                                                             onClick={() => deleteProduct(product._id)}
@@ -1055,90 +1118,99 @@ const AdminDashboard = () => {
                             <div className="form-grid">
                                 <div className="form-group">
                                     <label>Mã sản phẩm (idClient) *</label>
-                                    <input 
-                                        type="text" 
-                                        required 
+                                    <input
+                                        type="text"
+                                        required
                                         placeholder="Ví dụ: premium-mango"
                                         value={productForm.idClient}
-                                        onChange={(e) => setProductForm({...productForm, idClient: e.target.value})}
+                                        onChange={(e) => setProductForm({ ...productForm, idClient: e.target.value })}
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>Tên sản phẩm *</label>
-                                    <input 
-                                        type="text" 
-                                        required 
+                                    <input
+                                        type="text"
+                                        required
                                         value={productForm.title}
-                                        onChange={(e) => setProductForm({...productForm, title: e.target.value})}
+                                        onChange={(e) => setProductForm({ ...productForm, title: e.target.value })}
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>Giá (VNĐ) *</label>
-                                    <input 
-                                        type="number" 
-                                        required 
+                                    <input
+                                        type="number"
+                                        required
                                         value={productForm.price}
-                                        onChange={(e) => setProductForm({...productForm, price: e.target.value})}
+                                        onChange={(e) => setProductForm({ ...productForm, price: e.target.value })}
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>Giá cũ (VNĐ)</label>
-                                    <input 
-                                        type="number" 
+                                    <input
+                                        type="number"
                                         value={productForm.oldPrice}
-                                        onChange={(e) => setProductForm({...productForm, oldPrice: e.target.value})}
+                                        onChange={(e) => setProductForm({ ...productForm, oldPrice: e.target.value })}
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>Danh mục</label>
-                                    <input 
-                                        type="text" 
+                                    <input
+                                        type="text"
                                         value={productForm.category}
-                                        onChange={(e) => setProductForm({...productForm, category: e.target.value})}
+                                        onChange={(e) => setProductForm({ ...productForm, category: e.target.value })}
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label>Badge (Nhãn)</label>
-                                    <input 
-                                        type="text" 
+                                    <input
+                                        type="text"
                                         placeholder="Ví dụ: Bán chạy, Mới"
                                         value={productForm.badge}
-                                        onChange={(e) => setProductForm({...productForm, badge: e.target.value})}
+                                        onChange={(e) => setProductForm({ ...productForm, badge: e.target.value })}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Số lượng tồn kho</label>
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        value={productForm.quantity}
+                                        onChange={(e) => setProductForm({ ...productForm, quantity: Number(e.target.value) })}
                                     />
                                 </div>
                                 <div className="form-group full-width">
                                     <label>Đường dẫn ảnh (URL) *</label>
-                                    <input 
-                                        type="text" 
-                                        required 
+                                    <input
+                                        type="text"
+                                        required
                                         value={productForm.image}
-                                        onChange={(e) => setProductForm({...productForm, image: e.target.value})}
+                                        onChange={(e) => setProductForm({ ...productForm, image: e.target.value })}
                                     />
                                 </div>
                                 <div className="form-group full-width">
                                     <label>Mô tả ngắn *</label>
-                                    <textarea 
-                                        required 
+                                    <textarea
+                                        required
                                         rows="3"
                                         value={productForm.description}
-                                        onChange={(e) => setProductForm({...productForm, description: e.target.value})}
+                                        onChange={(e) => setProductForm({ ...productForm, description: e.target.value })}
                                     ></textarea>
                                 </div>
                                 <div className="form-group full-width">
                                     <label>Đặc điểm (Features) - Phân cách bằng dấu phẩy</label>
-                                    <input 
-                                        type="text" 
+                                    <input
+                                        type="text"
                                         placeholder="Ví dụ: Tự nhiên, Không đường, Giàu vitamin"
                                         value={productForm.features}
-                                        onChange={(e) => setProductForm({...productForm, features: e.target.value})}
+                                        onChange={(e) => setProductForm({ ...productForm, features: e.target.value })}
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label className="checkbox-label">
-                                        <input 
-                                            type="checkbox" 
+                                        <input
+                                            type="checkbox"
                                             checked={productForm.inStock}
-                                            onChange={(e) => setProductForm({...productForm, inStock: e.target.checked})}
+                                            onChange={(e) => setProductForm({ ...productForm, inStock: e.target.checked })}
                                         />
                                         Còn hàng
                                     </label>

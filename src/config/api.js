@@ -8,6 +8,8 @@ export const API_ENDPOINTS = {
   productById: (id) => `${API_BASE_URL}/products/${encodeURIComponent(id)}`,
   contact: `${API_BASE_URL}/contact`,
   orders: `${API_BASE_URL}/orders`,
+  ordersMe: `${API_BASE_URL}/orders/me`,
+  chat: `${API_BASE_URL}/chat`,
   // Admin endpoints
   adminProducts: `${API_BASE_URL}/admin/products`,
   adminOrders: `${API_BASE_URL}/admin/orders`,

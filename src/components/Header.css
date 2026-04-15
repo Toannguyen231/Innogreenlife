@@ -38,8 +38,15 @@
 }
 
 @keyframes sway {
-  0%, 100% { transform: rotate(-9deg); }
-  50%       { transform: rotate(9deg); }
+
+  0%,
+  100% {
+    transform: rotate(-9deg);
+  }
+
+  50% {
+    transform: rotate(9deg);
+  }
 }
 
 nav {
@@ -48,7 +55,9 @@ nav {
 }
 
 @media (max-width: 768px) {
-  nav { display: none; }
+  nav {
+    display: none;
+  }
 }
 
 nav a {
@@ -72,8 +81,14 @@ nav a::after {
   transition: width 0.3s, left 0.3s;
 }
 
-nav a:hover { color: var(--secondary); }
-nav a:hover::after { width: 100%; left: 0; }
+nav a:hover {
+  color: var(--secondary);
+}
+
+nav a:hover::after {
+  width: 100%;
+  left: 0;
+}
 
 .hdr-btn {
   background: linear-gradient(135deg, var(--primary), var(--primary-light));
@@ -98,6 +113,22 @@ nav a:hover::after { width: 100%; left: 0; }
   gap: 1.5rem;
 }
 
+.hdr-admin-link {
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--secondary);
+  padding: 0.55rem 1rem;
+  border-radius: 50px;
+  border: 1px solid rgba(102, 114, 216, 0.15);
+  transition: transform 0.3s, background 0.3s;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.hdr-admin-link:hover {
+  transform: translateY(-2px);
+  background: #fff;
+}
+
 .auth-actions {
   display: flex;
   align-items: center;
@@ -113,7 +144,7 @@ nav a:hover::after { width: 100%; left: 0; }
 
 .hdr-register:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .hdr-cart {
@@ -144,8 +175,9 @@ nav a:hover::after { width: 100%; left: 0; }
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  border: 2px solid #fffdf5; /* match header background */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 2px solid #fffdf5;
+  /* match header background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .hdr-login {
@@ -157,6 +189,93 @@ nav a:hover::after { width: 100%; left: 0; }
 
 .hdr-login i {
   font-size: 1rem;
+}
+
+.user-menu-container {
+  position: relative;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+  min-width: 200px;
+  overflow: hidden;
+  animation: dropdownFade 0.2s ease;
+  z-index: 100;
+}
+
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user-dropdown-header {
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+}
+
+.user-dropdown-name {
+  display: block;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.user-dropdown-email {
+  display: block;
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 2px;
+}
+
+.user-dropdown-divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.user-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  text-decoration: none;
+  transition: all 0.2s;
+  border: none;
+  background: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.user-dropdown-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--secondary);
+}
+
+.user-dropdown-item.logout {
+  color: #dc3545;
+}
+
+.user-dropdown-item.logout:hover {
+  background: rgba(220, 53, 69, 0.08);
+  color: #dc3545;
+}
+
+.user-dropdown-item i {
+  width: 18px;
+  text-align: center;
 }
 
 .user-menu {
@@ -201,4 +320,14 @@ nav a:hover::after { width: 100%; left: 0; }
 .btn-logout:hover {
   background: var(--secondary);
   color: #fff;
+}
+
+@media (max-width: 768px) {
+  .hdr-actions {
+    gap: 0.75rem;
+  }
+
+  .user-dropdown {
+    right: -10px;
+  }
 }

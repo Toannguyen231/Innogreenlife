@@ -110,6 +110,10 @@ export default function ProductDetail() {
       ? Math.round((1 - safePrice / safeOldPrice) * 100)
       : null
 
+  const availableQuantity = product && typeof product.quantity === 'number' ? product.quantity : null
+  const isOutOfStock = availableQuantity !== null ? availableQuantity <= 0 : product?.inStock === false
+  const canAddToCart = !isOutOfStock
+
   return (
     <>
       <Header />
@@ -163,10 +167,16 @@ export default function ProductDetail() {
                   </div>
                 </div>
 
+                {availableQuantity !== null ? (
+                  <p className="stock-status">Còn lại: {availableQuantity} sản phẩm</p>
+                ) : (
+                  <p className="stock-status">{product.inStock ? 'Còn hàng' : 'Hết hàng'}</p>
+                )}
+
                 <button
                   type="button"
                   className="btn-buy btn-primary"
-                  disabled={product.inStock === false}
+                  disabled={!canAddToCart || (availableQuantity !== null && quantity > availableQuantity)}
                   onClick={(e) => {
                     addRipple(e)
                     addToCart({
@@ -176,12 +186,10 @@ export default function ProductDetail() {
                       quantity,
                       image: typeof product.image === 'string' ? product.image : productImg
                     })
-                    showToast(`Added ${quantity} item(s) to cart!`)
+                    showToast(`Đã thêm ${quantity} sản phẩm vào giỏ hàng!`)
                   }}
                 >
-                  {product.inStock === false ? 'Out of stock' : (
-                    <>Add to Cart <i className="fa-solid fa-cart-shopping"></i></>
-                  )}
+                  {isOutOfStock ? 'Hết hàng' : 'Thêm vào giỏ'}
                 </button>
 
                 <Link to="/" className="back-link">

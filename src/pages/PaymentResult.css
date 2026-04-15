@@ -1,0 +1,32 @@
+.payment-result-page {
+    padding: 4rem 1rem;
+}
+
+.payment-result-container {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.payment-card,
+.payment-empty {
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 2rem;
+    background: #fff;
+}
+
+.payment-note {
+    margin-bottom: 1rem;
+    color: #4b5563;
+}
+
+.qr-box {
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+.qr-box img {
+    max-width: 250px;
+    border-radius: 18px;
+    border: 1px solid #d1d5db;
+}

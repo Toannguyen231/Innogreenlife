@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useCart } from '../hooks/useCart'
 import { useAuth } from '../context/AuthContext'
@@ -10,6 +10,8 @@ export default function Header() {
   const location = useLocation()
   const { totalItems } = useCart()
   const { user, logout } = useAuth()
+  const [showUserMenu, setShowUserMenu] = useState(false)
+  const userMenuRef = useRef(null)
 
   // Header scroll effect
   useEffect(() => {
@@ -23,6 +25,17 @@ export default function Header() {
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Close user menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+        setShowUserMenu(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
   // Smooth scroll to section (works on Home page)
@@ -57,18 +70,42 @@ export default function Header() {
 
         <div className="hdr-actions">
           {user ? (
-            <div className="user-menu">
-              <div className="user-avatar" title={user.name || user.email}>
+            <div className="user-menu-container" ref={userMenuRef}>
+              <div
+                className="user-avatar"
+                title={`${user.name || user.email} (Role: ${user.role || 'unknown'})`}
+                onClick={() => setShowUserMenu(!showUserMenu)}
+                style={{ cursor: 'pointer' }}
+              >
                 {(user.name || user.email || 'U').trim().charAt(0).toUpperCase()}
               </div>
-              <span className="user-name">{user.name || user.email}</span>
-              {user.role === 'admin' && (
-                <Link to="/admin" className="admin-link">Admin</Link>
+              {showUserMenu && (
+                <div className="user-dropdown">
+                  <div className="user-dropdown-header">
+                    <span className="user-dropdown-name">{user.name || user.email}</span>
+                    <span className="user-dropdown-email">{user.email}</span>
+                  </div>
+                  <div className="user-dropdown-divider"></div>
+                  <Link to="/orders" className="user-dropdown-item" onClick={() => setShowUserMenu(false)}>
+                    <i className="fa-solid fa-box"></i> My Orders
+                  </Link>
+                  {user?.role === 'admin' && (
+                    <Link to="/admin" className="user-dropdown-item" onClick={() => setShowUserMenu(false)}>
+                      <i className="fa-solid fa-gear"></i> Admin Dashboard
+                    </Link>
+                  )}
+                  <div className="user-dropdown-divider"></div>
+                  <button onClick={() => { logout(); setShowUserMenu(false); }} className="user-dropdown-item logout">
+                    <i className="fa-solid fa-right-from-bracket"></i> Logout
+                  </button>
+                </div>
               )}
-              <button onClick={logout} className="btn-logout">Logout</button>
             </div>
           ) : (
             <div className="auth-actions">
+              <a href="#product" className="hdr-btn" onClick={(e) => scrollTo(e, 'product')}>
+                Shop Now
+              </a>
               <Link to="/register" className="hdr-btn hdr-register">
                 Register
               </Link>
@@ -77,9 +114,11 @@ export default function Header() {
               </Link>
             </div>
           )}
-          <a href="#product" className="hdr-btn" onClick={(e) => scrollTo(e, 'product')}>
-            Shop Now
-          </a>
+          {user?.role === 'admin' && (
+            <Link to="/admin" className="hdr-btn hdr-admin-link">
+              Admin Dashboard
+            </Link>
+          )}
           <Link to="/cart" className="hdr-cart">
             <i className="fa-solid fa-cart-shopping"></i>
             {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}

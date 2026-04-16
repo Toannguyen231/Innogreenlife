@@ -24,10 +24,10 @@ export default function Footer() {
           <div className="foot-col">
             <h4>Contact</h4>
             <div className="ci">
-              <i className="fa-solid fa-envelope"></i> hello@man-up.com
+              <i className="fa-solid fa-envelope"></i> manupsnack@gmail.com
             </div>
             <div className="ci">
-              <i className="fa-solid fa-phone"></i> +1 (555) 123-4567
+              <i className="fa-solid fa-phone"></i> 0378978498
             </div>
           </div>
         </div>

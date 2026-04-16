@@ -54,7 +54,7 @@ export default function Hero() {
           <span className="title-line title-accent">Vỏ Xoài Tái Sinh</span>
         </h1>
         <p className="hero-sub">
-          Thưởng thức dòng snack sấy lạnh giàu Mangiferin, cung cấp hàm lượng chất xơ gấp đôi và minh bạch nguồn gốc qua mã QR định danh.
+          Thưởng thức dòng snack sấy lạnh - ép đùn nổ bỏng giàu Mangiferin, cung cấp hàm lượng chất xơ gấp đôi và minh bạch nguồn gốc qua mã QR định danh.
         </p>
         <div className="hero-btns">
           <button className="btn-primary" onClick={(e) => { addRipple(e); scrollTo('product') }}>

@@ -17,7 +17,6 @@ export default function Hero() {
   const bgRef = useRef(null)
   const hdrHeight = 72
 
-  // Parallax effect
   useEffect(() => {
     const onScroll = () => {
       if (bgRef.current) {
@@ -48,21 +47,21 @@ export default function Hero() {
       </div>
 
       <div className="hero-content">
-        <span className="hero-badge">Premium Mango Snacks</span>
+        <span className="hero-badge">★ ★ Giàu Mangiferin · Tái Chế Thông Minh</span>
         <h1 className="hero-title">
-          Nature's Sweetest<br />
-          <span className="hl">Healthy</span> Treat
+          <span className="title-line">MAN-UP SNACK</span>
+          <span className="title-line title-accent">Tuyệt Phẩm Từ</span>
+          <span className="title-line title-accent">Vỏ Xoài Tái Sinh</span>
         </h1>
         <p className="hero-sub">
-          100% natural mango snacks made from premium fruit. No added sugar, no preservatives.
-          Just pure, delicious goodness.
+          Thưởng thức dòng snack sấy lạnh giàu Mangiferin, cung cấp hàm lượng chất xơ gấp đôi và minh bạch nguồn gốc qua mã QR định danh.
         </p>
         <div className="hero-btns">
           <button className="btn-primary" onClick={(e) => { addRipple(e); scrollTo('product') }}>
-            Explore Product
+            Khám Phá Sản Phẩm <span className="btn-arrow">→</span>
           </button>
           <button className="btn-outline" onClick={() => scrollTo('story')}>
-            Learn Our Story
+            Câu Chuyện Của Chúng Tôi
           </button>
         </div>
       </div>

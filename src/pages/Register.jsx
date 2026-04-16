@@ -56,7 +56,7 @@ export default function Register() {
           <div className="auth-card">
             <div className="auth-header">
               <h1>Create Account</h1>
-              <p>Join MangoRush and start shopping</p>
+              <p>Join MAN-UP and start shopping</p>
             </div>
             <form onSubmit={handleSubmit} className="auth-form">
               <div className="form-group">

@@ -56,8 +56,8 @@ export default function Header() {
     <header id="hdr" ref={hdrRef} className="site-header">
       <div className="hdr">
         <Link to="/" className="logo">
-          <i className="fa-solid fa-leaf"></i>
-          <span>MangoRush</span>
+          <img src="/img/logo-removebg-preview.png" alt="MAN-UP" style={{ height: '40px' }} />
+          <span>MAN-UP</span>
         </Link>
 
         <nav>

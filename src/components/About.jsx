@@ -8,16 +8,15 @@ export default function About() {
     <section className="about" id="about">
       <div className="wrap">
         <div className="fi about-inner" ref={ref}>
-          <span className="tag">About</span>
-          <h2 className="stitle">Snacking Made Healthy</h2>
+          <span className="tag">VỀ CHÚNG TÔI</span>
+          <h2 className="stitle">Snacking Made Healthy – Tái Sinh Từ Lớp Vỏ</h2>
+          
           <p className="stxt">
-            We believe healthy eating should be delicious and convenient. Our mango snacks are
-            carefully crafted from premium, organically grown mangoes to deliver the perfect
-            balance of natural sweetness and nutrition.
+            Chúng tôi tin rằng ăn vặt lành mạnh phải gắn liền với sự bền vững. MAN-UP SNACK tiên phong biến vỏ xoài thành siêu thực phẩm nhờ công nghệ Sấy lạnh PID thông minh, giúp giữ trọn 95% dưỡng chất và hàm lượng chất xơ gấp 2 lần so với thịt quả.
           </p>
+          
           <p className="stxt">
-            Each pack is filled with essential vitamins, fiber, and antioxidants to fuel your
-            body while satisfying your sweet cravings the natural way.
+            Mỗi gói snack không chỉ giàu chất chống oxy hóa Mangiferin giúp nạp năng lượng cho cơ thể, mà còn hiện thực hóa mô hình kinh tế tuần hoàn không rác thải. Thưởng thức vị ngon tự nhiên và an tâm tuyệt đối với mã QR truy xuất nguồn gốc minh bạch.
           </p>
         </div>
       </div>

@@ -31,7 +31,7 @@ export default function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!gmailRegex.test(form.email.trim())) {
-      showToast('Please enter a valid Gmail address', 'error')
+      showToast('Vui lòng nhập địa chỉ Gmail hợp lệ', 'error')
       return
     }
     setSending(true)
@@ -48,31 +48,31 @@ export default function ContactForm() {
       })
       const data = await res.json().catch(() => ({}))
       if (!res.ok) {
-        throw new Error(data.message || 'Could not send message')
+        throw new Error(data.message || 'Không thể gửi tin nhắn')
       }
       setSent(true)
-      showToast("Message sent! We'll be in touch soon.", 'success')
+      showToast('Cảm ơn! Chúng tôi sẽ liên lạc sớm.', 'success')
       setTimeout(() => {
         setSent(false)
         setForm({ name: '', email: '', message: '' })
       }, 3000)
     } catch (err) {
-      showToast(err.message || 'Could not send message', 'error')
+      showToast('Không thể gửi tin nhắn. Vui lòng thử lại.', 'error')
     } finally {
       setSending(false)
     }
   }
 
-  const btnLabel = sending ? 'Sending…' : sent ? '✓ Sent!' : 'Send Message'
+  const btnLabel = sending ? 'Đang gửi…' : sent ? '✓ Đã gửi!' : 'Góp Ý Cho Sự Đột Phá'
 
   return (
     <section className="contact" id="contact">
       <div className="wrap">
         <div className="contact-inner fi" ref={ref}>
-          <span className="tag">Get in Touch</span>
-          <h2 className="stitle">Order Your Snacks</h2>
+          <span className="tag">Phản Hồi</span>
+          <h2 className="stitle">Cùng Chúng Tôi Hoàn Thiện Vòng Lặp Tái Sinh</h2>
           <p className="stxt contact-sub">
-            Ready to taste the difference? Contact us to place your order or learn more about our products.
+            Bạn cảm nhận thế nào về độ giòn tan của lớp vỏ và hàm lượng dinh dưỡng Mangiferin? Mọi phản hồi của bạn đều giúp MAN-UP SNACK tiến gần hơn tới mục tiêu Net-Zero. Cùng giảm phát thải khí Methane và hỗ trợ nông dân tăng 15-20% giá trị nông sản.
           </p>
 
           <form className="cform" onSubmit={handleSubmit}>
@@ -81,7 +81,7 @@ export default function ContactForm() {
                 <input
                   type="text"
                   name="name"
-                  placeholder="Your Name"
+                  placeholder="Tên của bạn"
                   value={form.name}
                   onChange={handleChange}
                   required
@@ -91,7 +91,7 @@ export default function ContactForm() {
                 <input
                   type="email"
                   name="email"
-                  placeholder="Gmail Address"
+                  placeholder="Địa chỉ Gmail"
                   value={form.email}
                   onChange={handleChange}
                   pattern="[a-zA-Z0-9._%+-]+@gmail\.com"
@@ -103,7 +103,7 @@ export default function ContactForm() {
             <div className="fg">
               <textarea
                 name="message"
-                placeholder="Your Message"
+                placeholder="Chia sẻ về hương vị yêu thích (Mặn ngọt, Cay nồng hay Phô mai) hoặc trải nghiệm quét mã QR truy xuất nhật ký sấy đã được niêm phong số"
                 value={form.message}
                 onChange={handleChange}
                 required

@@ -7,8 +7,8 @@ export default function Footer() {
         <div className="foot-grid">
           <div className="foot-brand">
             <a href="#" className="foot-logo">
-              <i className="fa-solid fa-leaf"></i>
-              <span>MangoRush</span>
+              <img src="/img/logo-removebg-preview.png" alt="MAN-UP" style={{ height: '40px' }} />
+              <span>MAN-UP</span>
             </a>
             <p>Premium mango snacks for a healthier lifestyle.</p>
           </div>
@@ -24,7 +24,7 @@ export default function Footer() {
           <div className="foot-col">
             <h4>Contact</h4>
             <div className="ci">
-              <i className="fa-solid fa-envelope"></i> hello@mangorush.com
+              <i className="fa-solid fa-envelope"></i> hello@man-up.com
             </div>
             <div className="ci">
               <i className="fa-solid fa-phone"></i> +1 (555) 123-4567
@@ -33,7 +33,7 @@ export default function Footer() {
         </div>
 
         <div className="foot-bottom">
-          &copy; 2024 MangoRush. All rights reserved.
+          &copy; 2024 MAN-UP. All rights reserved.
         </div>
       </div>
     </footer>

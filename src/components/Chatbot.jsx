@@ -25,7 +25,7 @@ const TypingIndicator = () => (
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState([
-    { id: 1, type: 'bot', text: 'Xin chào! 👋 Tôi là trợ lý hỗ trợ của MangoRush. Bạn cần giúp gì hôm nay?', time: new Date() }
+    { id: 1, type: 'bot', text: 'Xin chào! 👋 Tôi là trợ lý hỗ trợ của MAN-UP. Bạn cần giúp gì hôm nay?', time: new Date() }
   ])
   const [input, setInput] = useState('')
   const [sending, setSending] = useState(false)
@@ -132,7 +132,7 @@ export default function Chatbot() {
               <i className="fa-solid fa-leaf"></i>
             </div>
             <div>
-              <h3>MangoRush Support</h3>
+              <h3>MAN-UP Support</h3>
               <span><span className="chatbot-status-dot"></span> Online</span>
             </div>
           </div>

@@ -26,22 +26,20 @@ export default function Story() {
           </div>
 
           <div className="fi d1" ref={textRef}>
-            <span className="tag">Our Story</span>
-            <h2 className="stitle">From Farm to You</h2>
+            <span className="tag">Câu Chuyện</span>
+            <h2 className="stitle">Hành Trình Tái Sinh</h2>
+            <h3 className="story-subtitle">Từ "Phế Phẩm" Đến Siêu Thực Phẩm</h3>
             <p className="stxt">
-              MangoRush started with a simple mission: to make healthy eating accessible and
-              delicious. We partner with local farmers who share our commitment to quality
-              and sustainability.
+              MAN-UP không chọn phần thịt xoài ngọt lịm thông thường, mà tập trung vào lớp vỏ – nơi chứa hàm lượng Mangiferin và chất xơ cao gấp 2 lần. Sứ mệnh của chúng tôi là thực hiện mô hình kinh tế tuần hoàn, giúp giảm phát thải khí Methane và tăng giá trị cây xoài thêm 15-20% cho nông dân.
             </p>
             <p className="stxt">
-              Every mango is hand-picked at peak ripeness, ensuring the sweetest flavor and
-              maximum nutrition. Our eco-friendly drying process preserves all the natural goodness.
+              Mỗi miếng snack là kết quả của công nghệ Sấy lạnh PID thông minh, bảo tồn 95% dưỡng chất mà không cần chiên dầu.
             </p>
 
             <div className="stats">
-              <StatItem target={50000} suffix="K+" label="Happy Customers" />
-              <StatItem target={15}    suffix=""   label="Countries" />
-              <StatItem target={100}   suffix="%"  label="Natural" />
+              <StatItem target={2} suffix="X" label="Fiber" />
+              <StatItem target={95} suffix="%" label="Nutrients" />
+              <StatItem target={0} suffix="" label="Net-Zero" />
             </div>
           </div>
         </div>

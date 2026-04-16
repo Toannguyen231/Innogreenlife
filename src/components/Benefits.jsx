@@ -20,19 +20,19 @@ export default function Benefits() {
   const items = [
     {
       icon: 'fa-solid fa-seedling',
-      title: '100% Natural',
-      description: 'Made from premium organic mangoes with no artificial additives or preservatives.',
+      title: '100% Tự Nhiên & Tái Sinh',
+      description: 'Tiên phong dòng thực phẩm tái chế (Upcycled Food) từ vỏ xoài tươi, sử dụng kỹ thuật khử chát tự nhiên, hoàn toàn không chiên qua dầu và không chất bảo quản.',
     },
     {
       icon: 'fa-solid fa-heart-pulse',
-      title: 'Healthy Snack',
-      description: 'Rich in vitamins and fiber. A nutritious alternative to processed snacks.',
+      title: 'Siêu Thực Phẩm Dinh Dưỡng',
+      description: 'Sở hữu hàm lượng chất xơ cao gấp 2 lần thịt quả và giàu hợp chất quý Mangiferin giúp chống oxy hóa, hỗ trợ tiêu hóa và ngăn ngừa lão hóa hiệu quả.',
       delay: 'd1',
     },
     {
       icon: 'fa-solid fa-recycle',
-      title: 'Eco-Friendly',
-      description: 'Sustainable production process that minimizes waste and cares for our planet.',
+      title: 'Sống Xanh & Minh Bạch',
+      description: 'Hiện thực hóa mô hình kinh tế tuần hoàn (Net-Zero) bằng cách giảm phát thải khí Methane. Minh bạch nguồn gốc và nhật ký sấy qua mã QR định danh đã được niêm phong số.',
       delay: 'd2',
     },
   ]
@@ -41,8 +41,8 @@ export default function Benefits() {
     <section className="benefits" id="benefits">
       <div className="wrap">
         <div className="ben-hdr fi" ref={headerRef}>
-          <span className="tag">Why Choose Us</span>
-          <h2 className="stitle">Three Reasons to Love</h2>
+          <span className="tag">Tại Sao Chọn MAN-UP</span>
+          <h2 className="stitle">3 Lý Do Để Yêu MAN-UP</h2>
         </div>
         <div className="ben-grid">
           {items.map((item) => (

@@ -75,8 +75,8 @@ export default function ProductGrid() {
     <section className="product-section" id="product">
       <div className="container-product">
         <div className="ben-hdr fi" ref={headerRef}>
-          <span className="tag">Our Product</span>
-          <h2 className="stitle">Premium Mango Snacks</h2>
+          <span className="tag">Sản Phẩm Của Chúng Tôi</span>
+          <h2 className="stitle">Premium Upcycled Mango Peel Snacks</h2>
         </div>
         {loading && <p className="product-grid-status">Đang tải sản phẩm…</p>}
         {error && <p className="product-grid-status product-grid-error">{error}</p>}

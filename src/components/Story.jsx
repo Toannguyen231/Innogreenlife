@@ -33,13 +33,13 @@ export default function Story() {
               MAN-UP không chọn phần thịt xoài ngọt lịm thông thường, mà tập trung vào lớp vỏ – nơi chứa hàm lượng Mangiferin và chất xơ cao gấp 2 lần. Sứ mệnh của chúng tôi là thực hiện mô hình kinh tế tuần hoàn, giúp giảm phát thải khí Methane và tăng giá trị cây xoài thêm 15-20% cho nông dân.
             </p>
             <p className="stxt">
-              Mỗi miếng snack là kết quả của công nghệ Sấy lạnh PID thông minh, bảo tồn 95% dưỡng chất mà không cần chiên dầu.
+              Mỗi miếng snack là kết quả của công nghệ Sấy lạnh - ép đùn nổ bỏng, bảo tồn nhiều dưỡng chất mà không cần chiên dầu.
             </p>
-
+            
             <div className="stats">
-              <StatItem target={2} suffix="X" label="Fiber" />
-              <StatItem target={95} suffix="%" label="Nutrients" />
-              <StatItem target={0} suffix="" label="Net-Zero" />
+              <StatItem target={2} suffix="X" label="Chất Xơ" />
+              <StatItem target={3} suffix=" KHÔNG" label="Không dầu mỡ, không chất bảo quản, không phẩm màu" />
+              <StatItem target={0} suffix="" label="Phát thải (Net-Zero)" />
             </div>
           </div>
         </div>

@@ -72,12 +72,7 @@ export function AuthProvider({ children }) {
       throw new Error(data.message || 'Registration failed')
     }
 
-    setUser(data.user)
-    setToken(data.token)
-    localStorage.setItem('mangorush_user', JSON.stringify(data.user))
-    localStorage.setItem('mangorush_token', data.token)
-
-    return data.user
+    return data
   }
 
   const logout = () => {

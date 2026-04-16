@@ -4,6 +4,7 @@ import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import VerifyEmail from './pages/VerifyEmail'
 import AdminDashboard from './pages/AdminDashboard'
 import OrderHistory from './pages/OrderHistory'
 import PaymentResult from './pages/PaymentResult'
@@ -27,6 +28,7 @@ function App() {
             <Route path="/payment" element={<PaymentResult />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/verify-email/:token" element={<VerifyEmail />} />
             <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
           <Chatbot />

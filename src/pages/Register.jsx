@@ -12,6 +12,7 @@ export default function Register() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [submitting, setSubmitting] = useState(false)
+  const [isRegistered, setIsRegistered] = useState(false)
   const { user, register } = useAuth()
   const { showToast } = useToast()
   const navigate = useNavigate()
@@ -39,13 +40,41 @@ export default function Register() {
     try {
       setSubmitting(true)
       await register({ name, email, password })
-      showToast('Registration successful!', 'success')
-      navigate('/', { replace: true })
+      setIsRegistered(true)
+      showToast('Registration successful! Please check your email.', 'success')
     } catch (error) {
       showToast(error.message || 'Registration failed', 'error')
     } finally {
       setSubmitting(false)
     }
+  }
+
+  if (isRegistered) {
+    return (
+      <>
+        <Header />
+        <main className="auth-page">
+          <div className="auth-container">
+            <div className="auth-card text-center" style={{ textAlign: 'center' }}>
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-green-600" style={{ width: '64px', height: '64px', margin: '0 auto 24px' }}>
+                <i className="fa-solid fa-paper-plane text-2xl" style={{ fontSize: '24px' }}></i>
+              </div>
+              <h1 className="text-2xl font-bold mb-4">Check Your Email!</h1>
+              <p className="text-gray-600 mb-8">
+                We've sent a verification link to <strong>{email}</strong>. 
+                Please click the link in the email to activate your account.
+              </p>
+              <div className="auth-footer mt-6">
+                <Link to="/login" className="btn-auth inline-block" style={{ textDecoration: 'none' }}>
+                  Return to Login
+                </Link>
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </>
+    )
   }
 
   return (

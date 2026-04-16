@@ -16,7 +16,7 @@ export default function About() {
           </p>
           
           <p className="stxt">
-            Mỗi gói snack không chỉ giàu chất chống oxy hóa Mangiferin giúp nạp năng lượng cho cơ thể, mà còn hiện thực hóa mô hình kinh tế tuần hoàn không rác thải. Thưởng thức vị ngon tự nhiên và an tâm tuyệt đối với mã QR truy xuất nguồn gốc minh bạch.
+            Mỗi gói snack không chỉ giàu chất chống oxy hóa Mangiferin giúp nạp năng lượng cho cơ thể, mà còn hiện thực hóa mô hình kinh tế tuần hoàn (Net-Zero) bằng cách giảm phát thải khí Methane. Minh bạch nguồn gốc và nhật ký sấy - ép đùn nổ bỏng qua mã QR định danh đã được niêm phong số.
           </p>
         </div>
       </div>

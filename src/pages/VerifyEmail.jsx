@@ -12,7 +12,7 @@ export default function VerifyEmail() {
   useEffect(() => {
     const verify = async () => {
       try {
-        const response = await fetch(`${API_ENDPOINTS.users.replace('/me', '')}/verify/${token}`)
+        const response = await fetch(API_ENDPOINTS.verifyEmail(token))
         const data = await response.json()
 
         if (response.ok) {

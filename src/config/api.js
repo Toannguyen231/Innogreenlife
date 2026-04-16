@@ -4,6 +4,7 @@ export const API_ENDPOINTS = {
   login: `${API_BASE_URL}/users/login`,
   register: `${API_BASE_URL}/users/register`,
   me: `${API_BASE_URL}/users/me`,
+  verifyEmail: (token) => `${API_BASE_URL}/users/verify/${token}`,
   products: `${API_BASE_URL}/products`,
   productById: (id) => `${API_BASE_URL}/products/${encodeURIComponent(id)}`,
   contact: `${API_BASE_URL}/contact`,

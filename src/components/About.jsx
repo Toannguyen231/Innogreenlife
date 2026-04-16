@@ -12,7 +12,7 @@ export default function About() {
           <h2 className="stitle">Snacking Made Healthy – Tái Sinh Từ Lớp Vỏ</h2>
           
           <p className="stxt">
-            Chúng tôi tin rằng ăn vặt lành mạnh phải gắn liền với sự bền vững. MAN-UP SNACK tiên phong biến vỏ xoài thành siêu thực phẩm nhờ công nghệ Sấy lạnh PID thông minh, giúp giữ trọn 95% dưỡng chất và hàm lượng chất xơ gấp 2 lần so với thịt quả.
+            Chúng tôi tin rằng ăn vặt lành mạnh phải gắn liền với sự bền vững. MAN-UP SNACK tiên phong biến vỏ xoài thành thực phẩm nhờ công nghệ Sấy lạnh, giúp giữ lượng dưỡng chất cao và hàm lượng chất xơ gấp 2 lần so với thịt quả
           </p>
           
           <p className="stxt">

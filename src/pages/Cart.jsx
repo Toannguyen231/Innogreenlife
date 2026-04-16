@@ -11,7 +11,7 @@ import './Cart.css'
 export default function Cart() {
   const { items, totalPrice, updateQuantity, removeFromCart, clearCart } = useCart()
   const { showToast } = useToast()
-  const { user } = useAuth()
+  const { user, token } = useAuth()
   const navigate = useNavigate()
 
   const [name, setName] = useState('')
@@ -55,7 +55,10 @@ export default function Cart() {
 
       const res = await fetch(API_ENDPOINTS.orders, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
+        },
         body: JSON.stringify(body),
       })
       const data = await res.json().catch(() => ({}))

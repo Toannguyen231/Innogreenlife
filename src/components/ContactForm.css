@@ -60,23 +60,22 @@
 
 .btn-send {
   align-self: center;
-  background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+  background: var(--secondary);
   color: #fff;
   border: none;
   cursor: pointer;
-  padding: 1rem 2.8rem;
-  border-radius: 50px;
+  padding: 0.85rem 2rem;
+  border-radius: 10px;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 700;
-  font-size: 1rem;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
 }
 
 .btn-send:hover:not(:disabled) {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 36px var(--secondary-glow);
+  background: var(--secondary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--secondary-glow);
 }
 
 .btn-send.sent {

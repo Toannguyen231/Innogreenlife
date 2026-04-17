@@ -68,6 +68,12 @@ img {
   padding: 0 2rem;
 }
 
+@media (max-width: 600px) {
+  .wrap {
+    padding: 0 1rem;
+  }
+}
+
 /* ── Section labels ── */
 .tag {
   display: inline-flex;
@@ -123,6 +129,39 @@ img {
   to { transform: scale(4); opacity: 0; }
 }
 
+/* ══ BUTTONS ══ */
+.btn-primary {
+  background: var(--primary);
+  color: var(--text);
+  padding: 0.7rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover {
+  background: var(--primary-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
 /* ══ TOAST ══ */
 .toast {
   position: fixed;
@@ -153,4 +192,28 @@ img {
 .toast.show {
   transform: translateY(0);
   opacity: 1;
+}
+
+/* ══ CART BUTTON ══ */
+.hdr-cart {
+  position: relative;
+  color: var(--secondary);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: transparent;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.hdr-cart:hover {
+  background: rgba(22, 163, 74, 0.1);
+}
+
+.hdr-cart:active {
+  transform: scale(0.95);
 }

@@ -13,7 +13,6 @@ export default function Header() {
   const [showUserMenu, setShowUserMenu] = useState(false)
   const userMenuRef = useRef(null)
 
-  // Header scroll effect
   useEffect(() => {
     const el = hdrRef.current
     const onScroll = () => {
@@ -27,7 +26,6 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Close user menu on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
@@ -38,7 +36,6 @@ export default function Header() {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  // Smooth scroll to section (works on Home page)
   const scrollTo = (e, id) => {
     e.preventDefault()
     if (location.pathname !== '/') {
@@ -70,37 +67,41 @@ export default function Header() {
 
         <div className="hdr-actions">
           {user ? (
-            <div className="user-menu-container" ref={userMenuRef}>
-              <div
-                className="user-avatar"
-                title={`${user.name || user.email} (Role: ${user.role || 'unknown'})`}
-                onClick={() => setShowUserMenu(!showUserMenu)}
-                style={{ cursor: 'pointer' }}
-              >
-                {(user.name || user.email || 'U').trim().charAt(0).toUpperCase()}
-              </div>
-              {showUserMenu && (
-                <div className="user-dropdown">
-                  <div className="user-dropdown-header">
-                    <span className="user-dropdown-name">{user.name || user.email}</span>
-                    <span className="user-dropdown-email">{user.email}</span>
-                  </div>
-                  <div className="user-dropdown-divider"></div>
-                  <Link to="/orders" className="user-dropdown-item" onClick={() => setShowUserMenu(false)}>
-                    <i className="fa-solid fa-box"></i> My Orders
-                  </Link>
-                  {user?.role === 'admin' && (
-                    <Link to="/admin" className="user-dropdown-item" onClick={() => setShowUserMenu(false)}>
-                      <i className="fa-solid fa-gear"></i> Admin Dashboard
-                    </Link>
-                  )}
-                  <div className="user-dropdown-divider"></div>
-                  <button onClick={() => { logout(); setShowUserMenu(false); }} className="user-dropdown-item logout">
-                    <i className="fa-solid fa-right-from-bracket"></i> Logout
-                  </button>
+            <>
+              <Link to="/orders" className="hdr-btn orders-btn" title="My Orders">
+                <i className="fa-solid fa-box"></i>
+              </Link>
+              <div className="user-menu-container" ref={userMenuRef}>
+                <div
+                  className="user-avatar"
+                  title={`${user.name || user.email} (Role: ${user.role || 'unknown'})`}
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                >
+                  {(user.name || user.email || 'U').trim().charAt(0).toUpperCase()}
                 </div>
-              )}
-            </div>
+                {showUserMenu && (
+                  <div className="user-dropdown">
+                    <div className="user-dropdown-header">
+                      <span className="user-dropdown-name">{user.name || user.email}</span>
+                      <span className="user-dropdown-email">{user.email}</span>
+                    </div>
+                    <div className="user-dropdown-divider"></div>
+                    <Link to="/orders" className="user-dropdown-item" onClick={() => setShowUserMenu(false)}>
+                      <i className="fa-solid fa-box"></i> My Orders
+                    </Link>
+                    {user?.role === 'admin' && (
+                      <Link to="/admin" className="user-dropdown-item" onClick={() => setShowUserMenu(false)}>
+                        <i className="fa-solid fa-gear"></i> Admin Dashboard
+                      </Link>
+                    )}
+                    <div className="user-dropdown-divider"></div>
+                    <button onClick={() => { logout(); setShowUserMenu(false); }} className="user-dropdown-item logout">
+                      <i className="fa-solid fa-right-from-bracket"></i> Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            </>
           ) : (
             <div className="auth-actions">
               <a href="#product" className="hdr-btn" onClick={(e) => scrollTo(e, 'product')}>
@@ -116,7 +117,7 @@ export default function Header() {
           )}
           {user?.role === 'admin' && (
             <Link to="/admin" className="hdr-btn hdr-admin-link">
-              Admin Dashboard
+              Admin
             </Link>
           )}
           <Link to="/cart" className="hdr-cart">

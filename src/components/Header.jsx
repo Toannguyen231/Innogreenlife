@@ -67,41 +67,36 @@ export default function Header() {
 
         <div className="hdr-actions">
           {user ? (
-            <>
-              <Link to="/orders" className="hdr-btn orders-btn" title="My Orders">
-                <i className="fa-solid fa-box"></i>
-              </Link>
-              <div className="user-menu-container" ref={userMenuRef}>
-                <div
-                  className="user-avatar"
-                  title={`${user.name || user.email} (Role: ${user.role || 'unknown'})`}
-                  onClick={() => setShowUserMenu(!showUserMenu)}
-                >
-                  {(user.name || user.email || 'U').trim().charAt(0).toUpperCase()}
-                </div>
-                {showUserMenu && (
-                  <div className="user-dropdown">
-                    <div className="user-dropdown-header">
-                      <span className="user-dropdown-name">{user.name || user.email}</span>
-                      <span className="user-dropdown-email">{user.email}</span>
-                    </div>
-                    <div className="user-dropdown-divider"></div>
-                    <Link to="/orders" className="user-dropdown-item" onClick={() => setShowUserMenu(false)}>
-                      <i className="fa-solid fa-box"></i> My Orders
-                    </Link>
-                    {user?.role === 'admin' && (
-                      <Link to="/admin" className="user-dropdown-item" onClick={() => setShowUserMenu(false)}>
-                        <i className="fa-solid fa-gear"></i> Admin Dashboard
-                      </Link>
-                    )}
-                    <div className="user-dropdown-divider"></div>
-                    <button onClick={() => { logout(); setShowUserMenu(false); }} className="user-dropdown-item logout">
-                      <i className="fa-solid fa-right-from-bracket"></i> Logout
-                    </button>
-                  </div>
-                )}
+            <div className="user-menu-container" ref={userMenuRef}>
+              <div
+                className="user-avatar"
+                title={`${user.name || user.email} (Role: ${user.role || 'unknown'})`}
+                onClick={() => setShowUserMenu(!showUserMenu)}
+              >
+                {(user.name || user.email || 'U').trim().charAt(0).toUpperCase()}
               </div>
-            </>
+              {showUserMenu && (
+                <div className="user-dropdown">
+                  <div className="user-dropdown-header">
+                    <span className="user-dropdown-name">{user.name || user.email}</span>
+                    <span className="user-dropdown-email">{user.email}</span>
+                  </div>
+                  <div className="user-dropdown-divider"></div>
+                  <Link to="/orders" className="user-dropdown-item" onClick={() => setShowUserMenu(false)}>
+                    <i className="fa-solid fa-box"></i> My Orders
+                  </Link>
+                  {user?.role === 'admin' && (
+                    <Link to="/admin" className="user-dropdown-item" onClick={() => setShowUserMenu(false)}>
+                      <i className="fa-solid fa-gear"></i> Admin Dashboard
+                    </Link>
+                  )}
+                  <div className="user-dropdown-divider"></div>
+                  <button onClick={() => { logout(); setShowUserMenu(false); }} className="user-dropdown-item logout">
+                    <i className="fa-solid fa-right-from-bracket"></i> Logout
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
             <div className="auth-actions">
               <a href="#product" className="hdr-btn" onClick={(e) => scrollTo(e, 'product')}>

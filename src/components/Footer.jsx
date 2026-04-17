@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="foot-grid">
           <div className="foot-brand">
             <a href="#" className="foot-logo">
-              <img src="/img/logo-removebg-preview.png" alt="MAN-UP" style={{ height: '40px' }} />
+              <img src="/img/logo-final-removebg-preview.png" alt="MAN-UP" style={{ height: '40px' }} />
               <span>MAN-UP</span>
             </a>
             <p>Premium mango snacks for a healthier lifestyle.</p>

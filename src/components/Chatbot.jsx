@@ -129,7 +129,7 @@ export default function Chatbot() {
         <div className="chatbot-header">
           <div className="chatbot-header-info">
             <div className="chatbot-avatar">
-              <img src="/img/logo-removebg-preview.png" alt="Logo" style={{ width: '100%', height: '100%', borderRadius: '50%' }} />
+              <img src="/img/logo-final-removebg-preview.png" alt="Logo" style={{ width: '100%', height: '100%', borderRadius: '50%' }} />
             </div>
             <div>
               <h3>MAN-UP Support</h3>

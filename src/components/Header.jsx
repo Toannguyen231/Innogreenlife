@@ -53,7 +53,7 @@ export default function Header() {
     <header id="hdr" ref={hdrRef} className="site-header">
       <div className="hdr">
         <Link to="/" className="logo">
-          <img src="/img/logo-removebg-preview.png" alt="MAN-UP" style={{ height: '40px' }} />
+          <img src="/img/logo-final-removebg-preview.png" alt="MAN-UP" style={{ height: '40px' }} />
           <span>MAN-UP</span>
         </Link>
 

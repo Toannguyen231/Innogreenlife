@@ -40,6 +40,7 @@ export default function ProductDetail() {
   console.log('ProductDetail component rendered with id:', id)
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     let cancelled = false
 
     async function load() {

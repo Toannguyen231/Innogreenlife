@@ -148,10 +148,10 @@ export default function ProductDetail() {
                 </ul>
 
                 <div className="price-row">
-                  <span className="price-now">${hasValidPrice ? safePrice.toFixed(2) : '0.00'}</span>
+                  <span className="price-now">{hasValidPrice ? safePrice.toFixed(0) : '0'} VNĐ</span>
                   {hasValidOldPrice ? (
                     <>
-                      <span className="price-old">${safeOldPrice.toFixed(2)}</span>
+                      <span className="price-old">{safeOldPrice.toFixed(0)} VNĐ</span>
                       {discountPct != null ? (
                         <span className="price-pct">-{discountPct}%</span>
                       ) : null}

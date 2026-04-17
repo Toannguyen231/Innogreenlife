@@ -115,7 +115,7 @@ export default function Cart() {
                     <img src={item.image} alt={item.title} className="item-img" />
                     <div className="item-details">
                       <h3 className="item-title">{item.title}</h3>
-                      <p className="item-price">${item.price.toFixed(2)}</p>
+                      <p className="item-price">{item.price.toFixed(0)} VNĐ</p>
                     </div>
                     <div className="item-actions">
                       <div className="qty-controls small">
@@ -128,7 +128,7 @@ export default function Cart() {
                       </button>
                     </div>
                     <div className="item-total">
-                      ${(item.price * item.quantity).toFixed(2)}
+                      {(item.price * item.quantity).toFixed(0)} VNĐ
                     </div>
                   </div>
                 ))}
@@ -199,7 +199,7 @@ export default function Cart() {
 
                   <div className="summary-row">
                     <span>Subtotal</span>
-                    <span>${totalPrice.toFixed(2)}</span>
+                    <span>{totalPrice.toFixed(0)} VNĐ</span>
                   </div>
                   <div className="summary-row">
                     <span>Shipping</span>
@@ -208,7 +208,7 @@ export default function Cart() {
                   <hr />
                   <div className="summary-row total">
                     <span>Total</span>
-                    <span>${totalPrice.toFixed(2)}</span>
+                    <span>{totalPrice.toFixed(0)} VNĐ</span>
                   </div>
                   <button
                     type="button"

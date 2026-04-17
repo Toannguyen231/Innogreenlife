@@ -87,7 +87,7 @@ export default function OrderHistory() {
                                                     <img src={item.image} alt={item.title} />
                                                     <div>
                                                         <p>{item.title}</p>
-                                                        <p>{item.quantity} x ${item.price.toFixed(2)}</p>
+                                                        <p>{item.quantity} x {item.price.toLocaleString('vi-VN')} VNĐ</p>
                                                     </div>
                                                 </div>
                                             ))}

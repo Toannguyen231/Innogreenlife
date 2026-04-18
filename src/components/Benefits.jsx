@@ -20,7 +20,7 @@ export default function Benefits() {
   const items = [
     {
       icon: 'fa-solid fa-seedling',
-      title: '100% Tự Nhiên & Tái Sinh',
+      title: 'Tự Nhiên & Tái Sinh',
       description: 'Tiên phong dòng thực phẩm tái chế (Upcycled Food) từ vỏ xoài tươi, sử dụng kỹ thuật khử chát tự nhiên, hoàn toàn không chiên qua dầu và không chất bảo quản.',
     },
     {
@@ -42,7 +42,7 @@ export default function Benefits() {
       <div className="wrap">
         <div className="ben-hdr fi" ref={headerRef}>
           <span className="tag">Tại Sao Chọn MAN-UP</span>
-          <h2 className="stitle">3 Lý Do Để Yêu MAN-UP</h2>
+          <h2 className="stitle"><span className="number-tittle">3</span> Lý Do Để Yêu MAN-UP</h2>
         </div>
         <div className="ben-grid">
           {items.map((item) => (

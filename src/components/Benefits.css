@@ -16,7 +16,9 @@
 }
 
 @media (max-width: 768px) {
-  .ben-grid { grid-template-columns: 1fr; }
+  .ben-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .benefit-card {
@@ -46,7 +48,9 @@
   border-color: var(--border);
 }
 
-.benefit-card:hover::before { opacity: 1; }
+.benefit-card:hover::before {
+  opacity: 1;
+}
 
 .card-icon {
   width: 76px;

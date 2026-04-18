@@ -104,6 +104,16 @@ img {
   line-height: 1.14;
 }
 
+.stitle-number {
+  display: inline;
+  font-size: 1.2em;
+  font-weight: 900;
+  vertical-align: baseline;
+  margin-right: 0.1em;
+  color: var(--primary);
+  line-height: 1;
+}
+
 .stxt {
   color: var(--text-light);
   line-height: 1.9;

@@ -1,14 +1,13 @@
 import { useEffect, useRef } from 'react'
-import bgImage from '../assets/img/background.jpg'
+import bgImage from '../assets/img/phoenix-han-ErtdRiNkXIg-unsplash.jpg'
 import './Hero.css'
-
 function addRipple(e) {
   const btn = e.currentTarget
   const r = btn.getBoundingClientRect()
   const s = document.createElement('span')
   s.className = 'rpl'
   s.style.left = (e.clientX - r.left) + 'px'
-  s.style.top  = (e.clientY - r.top) + 'px'
+  s.style.top = (e.clientY - r.top) + 'px'
   btn.appendChild(s)
   setTimeout(() => s.remove(), 700)
 }
@@ -39,9 +38,6 @@ export default function Hero() {
           ref={bgRef}
           src={bgImage}
           alt="Mango Snacks background"
-          onError={(e) => {
-            e.target.src = 'https://images.unsplash.com/photo-1601493700631-2b16ec4b6fc0?w=1920&q=80'
-          }}
         />
         <div className="hero-overlay"></div>
       </div>

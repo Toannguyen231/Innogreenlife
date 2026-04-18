@@ -53,13 +53,23 @@ img {
   transform: translateY(38px);
   transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
 }
+
 .fi.on {
   opacity: 1;
   transform: none;
 }
-.fi.d1 { transition-delay: 0.12s; }
-.fi.d2 { transition-delay: 0.24s; }
-.fi.d3 { transition-delay: 0.36s; }
+
+.fi.d1 {
+  transition-delay: 0.12s;
+}
+
+.fi.d2 {
+  transition-delay: 0.24s;
+}
+
+.fi.d3 {
+  transition-delay: 0.36s;
+}
 
 /* ── Container ── */
 .wrap {
@@ -86,6 +96,7 @@ img {
   font-size: 0.72rem;
   margin-bottom: 0.7rem;
 }
+
 .tag::before {
   content: '';
   display: inline-block;
@@ -106,12 +117,13 @@ img {
 
 .stitle-number {
   display: inline;
-  font-size: 1.2em;
+  font-size: 1.5em;
   font-weight: 900;
   vertical-align: baseline;
-  margin-right: 0.1em;
+  margin-right: 0.05em;
+  margin-top: 0.35em;
   color: var(--primary);
-  line-height: 1;
+  line-height: 0;
 }
 
 .stxt {
@@ -135,8 +147,12 @@ img {
   animation: ripple 0.7s linear;
   pointer-events: none;
 }
+
 @keyframes ripple {
-  to { transform: scale(4); opacity: 0; }
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
 }
 
 /* ══ BUTTONS ══ */
@@ -189,16 +205,19 @@ img {
   transform: translateY(120px);
   opacity: 0;
   transition: transform 0.4s var(--ease), opacity 0.4s;
-  box-shadow: 0 8px 30px rgba(22,163,74,0.35);
+  box-shadow: 0 8px 30px rgba(22, 163, 74, 0.35);
 }
+
 .toast.toast-error {
   background: #dc2626;
-  box-shadow: 0 8px 30px rgba(220,38,38,0.35);
+  box-shadow: 0 8px 30px rgba(220, 38, 38, 0.35);
 }
+
 .toast.toast-success {
   background: var(--secondary);
-  box-shadow: 0 8px 30px rgba(22,163,74,0.35);
+  box-shadow: 0 8px 30px rgba(22, 163, 74, 0.35);
 }
+
 .toast.show {
   transform: translateY(0);
   opacity: 1;

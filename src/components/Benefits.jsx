@@ -1,6 +1,6 @@
 import { useFadeIn } from '../hooks/useFadeIn'
 import './Benefits.css'
-
+// import '../../src/pages/index.css'
 function BenefitCard({ icon, title, description, delay = '' }) {
   const ref = useFadeIn()
   return (

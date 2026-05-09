@@ -26,7 +26,7 @@ export default function Benefits() {
     {
       icon: 'fa-solid fa-heart-pulse',
       title: 'Siêu Thực Phẩm Dinh Dưỡng',
-      description: 'Sở hữu hàm lượng chất xơ cao gấp 2 lần thịt quả và giàu hợp chất quý Mangiferin giúp chống oxy hóa, hỗ trợ tiêu hóa và ngăn ngừa lão hóa hiệu quả.',
+      description: 'Sở hữu hàm lượng chất xơ cao và giàu hợp chất quý Mangiferin giúp chống oxy hóa, hỗ trợ tiêu hóa và ngăn ngừa lão hóa hiệu quả.',
       delay: 'd1',
     },
     {
